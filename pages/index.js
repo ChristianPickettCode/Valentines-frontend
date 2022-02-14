@@ -160,9 +160,14 @@ export default function Home() {
         }
         <br />
         { minedHash ? 
-          <Link href={`${BASE_ES_URL}${minedHash}`} isExternal>
-            Check in polyscan <ExternalLinkIcon mx='2px' />
-         </Link>
+          <div>
+            <Link href={`${BASE_ES_URL}${minedHash}`} isExternal>
+              Check in polyscan <ExternalLinkIcon mx='2px' />
+            </Link>
+            <Link href={OS_COLLECTION_URL} isExternal>
+              And Opensea <ExternalLinkIcon mx='2px' />
+            </Link>
+          </div>
         : ""}
       </main>
 
