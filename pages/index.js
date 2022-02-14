@@ -134,8 +134,7 @@ export default function Home() {
       <Button colorScheme="pink" variant="outline" style={{position:"absolute", right:"20px", top:"20px"}}><a target="_blank" rel="noopener noreferrer" href={OS_COLLECTION_URL}>Collection</a></Button>
       <Head>
         <title>Mint A Poem</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Mint a poem" />
       </Head>
 
       <main className={styles.main}>
