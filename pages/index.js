@@ -47,6 +47,7 @@ export default function Home() {
         const account = accounts[0];
         console.log('Found an authorized account:', account);
         setCurrentAccount(account);
+        checkNetwork();
       } else {
         console.log('No authorized account found');
       }
@@ -73,7 +74,6 @@ export default function Home() {
   };
 
   const mint = async () => {
-    checkNetwork();
     try {
       if(contract) {
         if (ethereum.networkVersion !== '137') {
@@ -119,7 +119,6 @@ export default function Home() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-    checkNetwork();
     
   }, []);
 
