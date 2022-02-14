@@ -7,11 +7,11 @@ import { ethers } from "ethers";
 import Valentines from "./artifacts/Valentines.json"
 import { Box, Button, Image, Input, Text, Link, Heading } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-// polygon
-const CONTRACT_ADDRESS = "0xcb137655081D91C4b7cC40801f1FECd858A27dda"; //rinkeby : 0xC673De6bA1a4617361Ea492B3939E3E2F3DfAD91
+// polygon old: 0xcb137655081D91C4b7cC40801f1FECd858A27dda
+const CONTRACT_ADDRESS = "0x5dF3ff8EF26C57d5D3b2A0273CA93Ba2dAb63F36"; //rinkeby : 0xC673De6bA1a4617361Ea492B3939E3E2F3DfAD91
 
 const BASE_ES_URL = "https://polygonscan.com/tx/";
-const OS_COLLECTION_URL = "https://opensea.io/collection/valentines-v2-1";
+const OS_COLLECTION_URL = "https://opensea.io/collection/valentines-day-poem";
 
 export default function Home() {
 
@@ -20,6 +20,18 @@ export default function Home() {
   const [textArr, setTextArr] = useState(["","","","","","","",""]);
   const [minedHash, setMinedHash] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const checkNetwork = async () => {
+    const { ethereum } = window;
+    try { 
+      if (ethereum.networkVersion !== '137') {
+        alert(`❤️ Please connect to the Polygon Network ❤️`)
+        console.log(ethereum.networkVersion)
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   const checkIfWalletIsConnected = async() => {
     try {
@@ -61,17 +73,24 @@ export default function Home() {
   };
 
   const mint = async () => {
+    checkNetwork();
     try {
       if(contract) {
-        console.log('Minting card in progress...');
+        if (ethereum.networkVersion !== '137') {
+          alert(`❤️ Please connect to the Polygon Network ❤️`)
+          console.log(ethereum.networkVersion)
+        } else {
+          console.log('Minting card in progress...');
         
-        const mintTxn = await contract.mint(textArr);
-        setIsLoading(true);
-        await mintTxn.wait();
-        // console.log('mintTxn: ', mintTxn);
-        // console.log(`https://rinkeby.etherscan.io/tx/${mintTxn.hash}`)
-        setMinedHash(mintTxn.hash)
-        setIsLoading(false);
+          const mintTxn = await contract.mint(textArr);
+          setIsLoading(true);
+          await mintTxn.wait();
+          // console.log('mintTxn: ', mintTxn);
+          // console.log(`https://rinkeby.etherscan.io/tx/${mintTxn.hash}`)
+          setMinedHash(mintTxn.hash)
+          setIsLoading(false);
+
+        }
       }
     } catch(error) {
       console.warn("MintCardAction Error:", error);
@@ -100,6 +119,7 @@ export default function Home() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    checkNetwork();
     
   }, []);
 
