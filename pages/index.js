@@ -111,7 +111,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Button colorScheme="pink" variant="outline" style={{position:"absolute", right:"20px", top:"20px"}}><a target="_blank" href={OS_COLLECTION_URL}>Collection</a></Button>
+      <Button colorScheme="pink" variant="outline" style={{position:"absolute", right:"20px", top:"20px"}}><a target="_blank" rel="noopener noreferrer" href={OS_COLLECTION_URL}>Collection</a></Button>
       <Head>
         <title>Mint A Poem</title>
         <meta name="description" content="" />
